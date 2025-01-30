@@ -51,9 +51,12 @@ export class HashMap {
       if (index < 0 || index >= this.buckets.length) {
         throw new Error("Trying to access index out of bounds");
       }
-      let id = this.buckets[hashcode].find(key);
-      let nodeAtId = this.buckets[hashcode].at(id);
-      return nodeAtId.value.valueVal;
+      const linkedListAtHashcode = this.buckets[hashcode];
+      if (linkedListAtHashcode.contains(key)) {
+        let returnedIndexOfNode = linkedListAtHashcode.find(key);
+        let nodeAtRI = linkedListAtHashcode.at(returnedIndexOfNode);
+        return nodeAtRI.value.valueVal 
+      }
 
     }
      return null;

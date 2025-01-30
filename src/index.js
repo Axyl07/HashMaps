@@ -28,7 +28,8 @@ console.log(test.hash('dog'));
 test.set('cat', 'browniesh')
 console.log(test.get('apple'));
 console.log(test.get('apple'));
-console.log(test.get('carrot'));
+console.log(test.get('djsacabc'));
+console.log(test.hash('djsacabc'))
 console.log(test)
 // console.log(test.get('Carlos'));
 // console.log(test.has('Carlos'));
