@@ -16,7 +16,6 @@ test.set('Carlos', 'I am the new value');
 
 test.set('dog', 'brown')
 console.log(test.hash('dog'));
-console.log(test.has('dog'));
 test.set('cat', 'browniesh')
 console.log(test.has('cat'));
 
@@ -32,6 +31,9 @@ console.log(test.get('apple'));
 console.log(test.get('dog'));
 console.log(test.hash('cat'))
 
+console.log(test.has('dog'));
+console.log(test.get('dog'));
+console.log(test.remove('dog'));
 console.log(test)
 // console.log(test.get('Carlos'));
 // console.log(test.has('Carlos'));

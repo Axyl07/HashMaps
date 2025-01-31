@@ -1,14 +1,13 @@
 export class HashMap {
   constructor() {
-     this.buckets = new Array(16);
+    this.buckets = new Array(16);
     let loadFactor = 0;
     let capacity = this.buckets.length;
     let index = 0;
-    while (index<16) {
+    while (index < 16) {
       this.buckets[index] = new LinkedList();
       index++;
     }
-    
   }
 
   hash(key) {
@@ -30,10 +29,9 @@ export class HashMap {
     console.log(hashcode);
     let linkedListAtHashcode = this.buckets[hashcode];
     console.log(linkedListAtHashcode);
-    if (linkedListAtHashcode.size()===0) {
-      linkedListAtHashcode.append(valueObj)
-    }
-    else {
+    if (linkedListAtHashcode.size() === 0) {
+      linkedListAtHashcode.append(valueObj);
+    } else {
       if (linkedListAtHashcode.contains(valueObj.keyVal)) {
         let returnedIndexOfNode = linkedListAtHashcode.find(valueObj.keyVal);
         let nodeAtRI = linkedListAtHashcode.at(returnedIndexOfNode);
@@ -41,8 +39,7 @@ export class HashMap {
       } else {
         linkedListAtHashcode.append(valueObj);
       }
-}
- 
+    }
   }
   get(key) {
     const hashcode = this.hash(key);
@@ -50,49 +47,33 @@ export class HashMap {
     if (linkedListAtHashcode.contains(key)) {
       let returnedIndexOfNode = linkedListAtHashcode.find(key);
       let nodeAtRI = linkedListAtHashcode.at(returnedIndexOfNode);
-      return nodeAtRI.value.valueVal 
-    }
-    else return null;
-
-    // for (let index = 0; index < this.buckets.length; index++) {
-    //   if (index < 0 || index >= this.buckets.length) {
-    //     throw new Error("Trying to access index out of bounds");
-    //   }
-      
-    // }
-
+      return nodeAtRI.value.valueVal;
+    } else return null;
   }
-  // get(key) {
-  //   const hashcode = this.hash(key);
-  //   if (this.buckets[hashcode]) {
-  //     return this.buckets[hashcode];
-  //   } else return null;
-  // }
+
   has(key) {
     const hashcode = this.hash(key);
     if (this.buckets[hashcode].contains(key)) {
       return true;
     } else return false;
   }
-  // remove(key) {
-  //   const hashcode = this.hash(key);
-  //   if (this.buckets[hashcode]) {
-  //     delete this.buckets[hashcode]
-  //     // this.buckets.splice(hashcode, 1);
-  //     return true;
-  //   } else return false;
-
-  // }
-  // length() {
-  //   let count = 0;
-  //   for (let index = 0; index < this.buckets.length; index++) {
-  //     if (this.buckets[index]) {
-  //       count++;
-  //     }
-
-  //   }
-  //   return count;
-  // }
+  remove(key) {
+    const hashcode = this.hash(key);
+    const linkedListAtHashcode = this.buckets[hashcode];
+    if (linkedListAtHashcode.contains(key)) {
+      const returnedIndexOfNode = linkedListAtHashcode.find(key);
+      console.log(returnedIndexOfNode);
+      if (returnedIndexOfNode === 0) {
+        linkedListAtHashcode.pop();
+        return true;//works
+      }
+      // const nodeAtRI = linkedListAtHashcode.at(returnedIndexOfNode);
+      else if (returnedIndexOfNode !== 0) {
+        linkedListAtHashcode.removeAt(returnedIndexOfNode);
+        return true;
+      }
+    } else return false;
+  }
 }
 
 export class LinkedList {
@@ -148,14 +129,20 @@ export class LinkedList {
     return temp;
   }
   pop() {
-    let temp = this.head;
-    while (temp.nextNode.nextNode != null) temp = temp.nextNode;
-    temp.nextNode = null;
+    if (this.head.nextNode === null) {
+      this.head = null;
+    }
+    
+    else {
+      let temp = this.head;
+      while (temp.nextNode.nextNode != null) temp = temp.nextNode;
+      temp.nextNode = null;
+    }
   }
 
   contains(value) {
     let temp = this.head;
-    if (temp.nextNode!=null) {
+    if (temp.nextNode != null) {
       let temp = this.head;
       while (temp.nextNode != null) {
         if (temp.value.keyVal === value) {
@@ -166,28 +153,33 @@ export class LinkedList {
       if (temp.value.keyVal === value) {
         return true;
       } else return false;
-    }
-    else {
+    } else {
       if (temp.value.keyVal === value) {
         return true;
       } else return false;
     }
-    }
+  }
   find(value) {
-
     let i = 0;
     let temp = this.head;
-    if (temp.nextNode===null) {
+    if (temp.nextNode === null) {
       return 0;
     }
-    while (temp.nextNode != null) {
-      i++;
-      if (temp.value.valueVal === value) {
+    else {
+      while (temp.nextNode != null) {
+        if (temp.value.keyVal === value) {
+          return i;
+        }
+        else {
+          temp = temp.nextNode;
+          i++;
+        }
+      }
+      if (temp.value.keyVal === value) {
         return i;
       }
-      temp = temp.nextNode;
+      else return null;
     }
-    return null;
   }
   toString() {
     let temp = this.head;
@@ -219,13 +211,18 @@ export class LinkedList {
     let i = 0;
     let prevNode = this.head;
     let currentNode = this.head.nextNode;
-    while (currentNode.nextNode != null) {
-      i++;
-      if (i === index) {
-        prevNode.nextNode = currentNode.nextNode;
+    if (currentNode.nextNode===null) {
+      prevNode.nextNode = currentNode.nextNode
+    }
+    else {
+      while (currentNode.nextNode != null) {
+        i++;
+        if (i === index) {
+          prevNode.nextNode = currentNode.nextNode;
+        }
+        prevNode = prevNode.nextNode;
+        currentNode = currentNode.nextNode;
       }
-      prevNode = prevNode.nextNode;
-      currentNode = currentNode.nextNode;
     }
   }
 }
