@@ -37,6 +37,7 @@ console.log(test.get('dog'));
 console.log(test.length());
 // test.clear();
 console.log(test.keys());
+console.log(test.values());
 console.log(test)
 // console.log(test.get('Carlos'));
 // console.log(test.has('Carlos'));
