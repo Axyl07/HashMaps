@@ -76,11 +76,21 @@ export class HashMap {
   }
   length() {
     let length = 0;
+    
     for (let index = 0; index < this.buckets.length; index++) {
+      if (index < 0 || index >= this.buckets.length) {
+        throw new Error("Trying to access index out of bounds");
+      }
+      
       const LinkedListatIndex = this.buckets[index];
       length += LinkedListatIndex.size();
     }
     return length;
+  }
+  clear() {
+    for (let index = 0; index < this.buckets.length; index++) {
+      this.buckets[index] = new LinkedList();
+    }
   }
 }
 
