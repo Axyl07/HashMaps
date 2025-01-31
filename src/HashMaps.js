@@ -74,6 +74,14 @@ export class HashMap {
       }
     } else return false;
   }
+  length() {
+    let length = 0;
+    for (let index = 0; index < this.buckets.length; index++) {
+      const LinkedListatIndex = this.buckets[index];
+      length += LinkedListatIndex.size();
+    }
+    return length;
+  }
 }
 
 export class LinkedList {

@@ -34,6 +34,7 @@ console.log(test.hash('cat'))
 console.log(test.has('dog'));
 console.log(test.get('dog'));
 console.log(test.remove('dog'));
+console.log(test.length());
 console.log(test)
 // console.log(test.get('Carlos'));
 // console.log(test.has('Carlos'));
