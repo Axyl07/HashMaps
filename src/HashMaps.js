@@ -120,6 +120,19 @@ export class HashMap {
     }
     return array;
   }
+  entries() {
+    let array = [];
+    for (let index = 0; index < this.buckets.length; index++) {
+      if (this.buckets[index].head!=null) {
+        for (let i = 0; i < this.buckets[index].size(); i++) {
+          const node = this.buckets[index].at(i);
+          array.push([node.value.keyVal, node.value.valueVal]);          
+        }
+      }
+      
+    }
+    return array
+  }
 }
 
 export class LinkedList {
