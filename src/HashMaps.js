@@ -46,20 +46,20 @@ export class HashMap {
   }
   get(key) {
     const hashcode = this.hash(key);
-
-    for (let index = 0; index < this.buckets.length; index++) {
-      if (index < 0 || index >= this.buckets.length) {
-        throw new Error("Trying to access index out of bounds");
-      }
-      const linkedListAtHashcode = this.buckets[hashcode];
-      if (linkedListAtHashcode.contains(key)) {
-        let returnedIndexOfNode = linkedListAtHashcode.find(key);
-        let nodeAtRI = linkedListAtHashcode.at(returnedIndexOfNode);
-        return nodeAtRI.value.valueVal 
-      }
-
+    const linkedListAtHashcode = this.buckets[hashcode];
+    if (linkedListAtHashcode.contains(key)) {
+      let returnedIndexOfNode = linkedListAtHashcode.find(key);
+      let nodeAtRI = linkedListAtHashcode.at(returnedIndexOfNode);
+      return nodeAtRI.value.valueVal 
     }
-     return null;
+    else return null;
+
+    // for (let index = 0; index < this.buckets.length; index++) {
+    //   if (index < 0 || index >= this.buckets.length) {
+    //     throw new Error("Trying to access index out of bounds");
+    //   }
+      
+    // }
 
   }
   // get(key) {
@@ -68,12 +68,12 @@ export class HashMap {
   //     return this.buckets[hashcode];
   //   } else return null;
   // }
-  // has(key) {
-  //   const hashcode = this.hash(key);
-  //   if (this.buckets[hashcode]) {
-  //     return true;
-  //   } else return false;
-  // }
+  has(key) {
+    const hashcode = this.hash(key);
+    if (this.buckets[hashcode].contains(key)) {
+      return true;
+    } else return false;
+  }
   // remove(key) {
   //   const hashcode = this.hash(key);
   //   if (this.buckets[hashcode]) {
@@ -155,20 +155,20 @@ export class LinkedList {
 
   contains(value) {
     let temp = this.head;
-    if (temp.nextNode === null) {
+    if (temp.nextNode!=null) {
+      let temp = this.head;
+      while (temp.nextNode != null) {
+        if (temp.value.keyVal === value) {
+          return true;
+        }
+        temp = temp.nextNode;
+      }
       if (temp.value.keyVal === value) {
         return true;
       } else return false;
     }
     else {
-      let temp = this.head;
-      while (temp.nextNode != null) {
-        if (temp.value === value) {
-          return true;
-        }
-        temp = temp.nextNode;
-      }
-      if (temp.value === value) {
+      if (temp.value.keyVal === value) {
         return true;
       } else return false;
     }

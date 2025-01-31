@@ -14,6 +14,11 @@ console.log(test);
 test.set('Carlos', 'I am the old value');
 test.set('Carlos', 'I am the new value');
 
+test.set('dog', 'brown')
+console.log(test.hash('dog'));
+console.log(test.has('dog'));
+test.set('cat', 'browniesh')
+console.log(test.has('cat'));
 
 console.log(test);
 console.log(test.hash('Carlaos'));
@@ -23,13 +28,10 @@ test.set('banana', 'yellow')
 console.log(test.hash('banana'));
 test.set('carrot', 'orange')
 console.log(test.hash('carrot'));
-test.set('dog', 'brown')
-console.log(test.hash('dog'));
-test.set('cat', 'browniesh')
 console.log(test.get('apple'));
-console.log(test.get('apple'));
-console.log(test.get('djsacabc'));
-console.log(test.hash('djsacabc'))
+console.log(test.get('dog'));
+console.log(test.hash('cat'))
+
 console.log(test)
 // console.log(test.get('Carlos'));
 // console.log(test.has('Carlos'));
