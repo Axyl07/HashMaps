@@ -1,49 +1,32 @@
 import {HashMap} from "./HashMaps";
-
-
-// const l1 = new LinkedList();
-// const l1obj = {
-//     key: "harry",
-//     value:"27"
-// }
-// l1.append(l1obj);
-// console.log(l1);
-
 const test = new HashMap();
-console.log(test);
-test.set('Carlos', 'I am the old value');
-test.set('Carlos', 'I am the new value');
-
-test.set('dog', 'brown')
-console.log(test.hash('dog'));
-test.set('cat', 'browniesh')
-console.log(test.has('cat'));
-
-console.log(test);
-console.log(test.hash('Carlaos'));
 test.set('apple', 'red')
-console.log(test.hash('apple'));
 test.set('banana', 'yellow')
-console.log(test.hash('banana'));
 test.set('carrot', 'orange')
-console.log(test.hash('carrot'));
-console.log(test.get('apple'));
-console.log(test.get('dog'));
-console.log(test.hash('cat'))
-
-console.log(test.has('dog'));
-console.log(test.get('dog'));
-// console.log(test.remove('dog'));
+test.set('dog', 'brown')
+test.set('elephant', 'gray')
+test.set('frog', 'green')
+test.set('grape', 'purple')
+test.set('hat', 'black')
+test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+test.set('kite', 'pink0')
+test.set('kite', 'pink1')
+test.set('lion', 'golden')
+test.set('lion', 'golden1')
+test.set('lion', 'golden2')
+test.set('moon', 'silver')
+test.set('moon', 'silver2')
+// test.set('moon', 'silver2')
+// console.log(test.product)
+console.log(test.entries().length);
+console.log(test.get('lion'));
+console.log(test.has('kite'));
+console.log(test.remove('jacket'))
 console.log(test.length());
-// test.clear();
 console.log(test.keys());
-console.log(test.values()); 
-console.log(test.entries()); 
-console.log(test)
-// console.log(test.get('Carlos'));
-// console.log(test.has('Carlos'));
-// console.log(test.remove('Carlosa'));
-// test.set('Carlos', 'I am the new again value');
-// console.log(test.length());
-// console.log(test);
-// // ctest.hash('Carlos')
+console.log(test.values());
+console.log(test.entries());
+// test.clear()
+console.log(test);

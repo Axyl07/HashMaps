@@ -1,8 +1,15 @@
 export class HashMap {
   constructor() {
-    this.buckets = new Array(16);
-    let loadFactor = 0;
-    let capacity = this.buckets.length;
+    let size = 16
+    this.buckets = new Array(size);
+    // let loadFactor = 0.75;
+    // let capacity = this.buckets.length;
+    // let product = loadFactor * capacity;
+    // // console.log(product)
+    // if (this.entries.length>=product) {
+    //   size *= 2;
+    //   this.buckets = new Array(size);
+    // }
     let index = 0;
     while (index < 16) {
       this.buckets[index] = new LinkedList();
@@ -10,36 +17,89 @@ export class HashMap {
     }
   }
 
+  // growth(mult) {
+  //   if (mult>this.entries.length) {
+  //     this.size *= 2;
+  //     return new Array(this.size);
+  //   }
+  // }
+
   hash(key) {
     let hashCode = 0;
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
       hashCode = primeNumber * hashCode + key.charCodeAt(i);
-      hashCode %= 16;
+      hashCode %= this.buckets.length;
     }
-
     return hashCode;
   }
   set(key, value) {
-    const valueObj = {
-      keyVal: key,
-      valueVal: value,
-    };
-    const hashcode = this.hash(key);
-    console.log(hashcode);
-    let linkedListAtHashcode = this.buckets[hashcode];
-    console.log(linkedListAtHashcode);
-    if (linkedListAtHashcode.size() === 0) {
-      linkedListAtHashcode.append(valueObj);
-    } else {
-      if (linkedListAtHashcode.contains(valueObj.keyVal)) {
-        let returnedIndexOfNode = linkedListAtHashcode.find(valueObj.keyVal);
-        let nodeAtRI = linkedListAtHashcode.at(returnedIndexOfNode);
-        nodeAtRI.value.valueVal = value;
-      } else {
+    let loadFactor = 0.75;
+    let capacity = this.buckets.length;
+    let loadCapacity = loadFactor * capacity;
+    if (this.entries().length >= loadCapacity) {
+      capacity *=2
+      let newArray = new Array(capacity);
+      for (let index=0; index < capacity; index++) {
+        newArray[index] = new LinkedList();
+      }    
+      for (let index=0; index < this.buckets.length; index++) {
+        newArray[index] = this.buckets[index];
+      }
+      this.buckets = newArray;
+      console.log(this.buckets);
+      const valueObj = {
+        keyVal: key,
+        valueVal: value,
+      };
+      const hashcode = this.hash(key);
+      let linkedListAtHashcode = this.buckets[hashcode];
+      if (linkedListAtHashcode.size() === 0) {
         linkedListAtHashcode.append(valueObj);
+      } else {
+        if (linkedListAtHashcode.contains(valueObj.keyVal)) {
+          let returnedIndexOfNode = linkedListAtHashcode.find(valueObj.keyVal);
+          let nodeAtRI = linkedListAtHashcode.at(returnedIndexOfNode);
+          if (nodeAtRI.value.keyVal === key) {
+            nodeAtRI.value.valueVal = value;
+          } else {
+            while (nodeAtRI.value.keyVal != key) {
+              nodeAtRI = nodeAtRI.nextNode;
+            }
+            nodeAtRI.value.valueVal = value;
+          }
+        } else {
+          linkedListAtHashcode.append(valueObj);
+        }
       }
     }
+    else {
+      const valueObj = {
+        keyVal: key,
+        valueVal: value,
+      };
+      const hashcode = this.hash(key);
+      let linkedListAtHashcode = this.buckets[hashcode];
+      if (linkedListAtHashcode.size() === 0) {
+        linkedListAtHashcode.append(valueObj);
+      } else {
+        if (linkedListAtHashcode.contains(valueObj.keyVal)) {
+          let returnedIndexOfNode = linkedListAtHashcode.find(valueObj.keyVal);
+          let nodeAtRI = linkedListAtHashcode.at(returnedIndexOfNode);
+          if (nodeAtRI.value.keyVal === key) {
+            nodeAtRI.value.valueVal = value;
+          } else {
+            while (nodeAtRI.value.keyVal != key) {
+              nodeAtRI = nodeAtRI.nextNode;
+            }
+            nodeAtRI.value.valueVal = value;
+          }
+          // nodeAtRI.value.valueVal = value;
+        } else {
+          linkedListAtHashcode.append(valueObj);
+        }
+      }
+}
   }
   get(key) {
     const hashcode = this.hash(key);
@@ -62,7 +122,7 @@ export class HashMap {
     const linkedListAtHashcode = this.buckets[hashcode];
     if (linkedListAtHashcode.contains(key)) {
       const returnedIndexOfNode = linkedListAtHashcode.find(key);
-      console.log(returnedIndexOfNode);
+      // console.log(returnedIndexOfNode);
       if (returnedIndexOfNode === 0) {
         linkedListAtHashcode.pop();
         return true;//works
@@ -135,7 +195,7 @@ export class HashMap {
   }
 }
 
-export class LinkedList {
+ class LinkedList {
   head = null;
   append(value) {
     if (this.head == null) this.head = new Node(value, null);
@@ -286,7 +346,7 @@ export class LinkedList {
   }
 }
 
-export class Node {
+ class Node {
   value = null;
   nextNode = null;
   constructor(value, nextNode) {
